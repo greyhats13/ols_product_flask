@@ -23,4 +23,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: username/repository:latest, username/repository:${{ github.sha }}
+          tags: greyhats13/product:latest, greyhats13/product:${{ github.sha }}
