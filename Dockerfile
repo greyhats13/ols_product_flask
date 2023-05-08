@@ -21,6 +21,7 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 COPY --from=build /usr/local/lib/python3.8 /usr/local/lib/python3.8
+COPY --from=build /usr/local/bin /usr/local/bin
 
 WORKDIR /app
 COPY --from=build /app .
