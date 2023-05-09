@@ -1,0 +1,14 @@
+summary: Retrieve a product by its ID
+parameters:
+  - in: path
+    name: id
+    type: integer
+    required: true
+    description: ID of the product
+responses:
+  200:
+    description: Product found
+    schema:
+      $ref: '#/definitions/Product'
+  404:
+    description: Product not found

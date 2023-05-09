@@ -1,0 +1,8 @@
+summary: Retrieve all products
+responses:
+  200:
+    description: List of products
+    schema:
+      type: array
+      items:
+        $ref: '#/definitions/Product'

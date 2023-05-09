@@ -1,0 +1,13 @@
+summary: Add a new product
+parameters:
+  - in: body
+    name: body
+    schema:
+      $ref: '#/definitions/Product'
+responses:
+  201:
+    description: Product created
+    schema:
+      $ref: '#/definitions/Product'
+  400:
+    description: Invalid input

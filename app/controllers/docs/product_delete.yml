@@ -1,0 +1,12 @@
+summary: Delete a product by its ID
+parameters:
+  - in: path
+    name: id
+    type: integer
+    required: true
+    description: ID of the product
+responses:
+  200:
+    description: Product deleted
+  404:
+    description: Product not found

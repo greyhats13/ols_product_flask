@@ -2,10 +2,12 @@ from datetime import datetime
 from app.models.ProductModel import ProductModel
 from flask_restful import Resource, reqparse
 from app import redis
+from flasgger import swag_from
 
 class ProductController(Resource):
     # Retrieve a product by its ID, with caching
     @redis.cached(timeout=60)
+    @swag_from('docs/product_get.yml')
     def get(self, id):
         product = ProductModel.get_by_id(id)
         if product:
@@ -13,6 +15,7 @@ class ProductController(Resource):
         return {'message': 'Product not found'}, 404
 
     # Update a product by its ID
+    @swag_from('docs/product_put.yml')
     def put(self, id):
         parser = reqparse.RequestParser()
         parser.add_argument('sku', type=str, required=False)
@@ -34,6 +37,7 @@ class ProductController(Resource):
         return {'message': 'Product not found'}, 404
 
     # Delete a product by its ID
+    @swag_from('docs/product_delete.yml')
     def delete(self, id):
         product = ProductModel.delete_by_id(id)
         if product:
@@ -43,6 +47,7 @@ class ProductController(Resource):
 class ProductListController(Resource):
     # Retrieve all products, with caching
     @redis.cached(timeout=60)
+    @swag_from('docs/products_get.yml')
     def get(self):
         products = ProductModel.get_all()
         if products:
@@ -50,6 +55,7 @@ class ProductListController(Resource):
         return {'message': 'Products not found'}, 404
     
     # Create a new product
+    @swag_from('docs/products_post.yml')
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument('sku', type=str, required=True)

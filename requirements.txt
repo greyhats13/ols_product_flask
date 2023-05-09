@@ -6,3 +6,4 @@ redis
 flask_caching
 pymysql
 flask_healthz
+flasgger
