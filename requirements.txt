@@ -2,6 +2,7 @@ flask
 flask_sqlalchemy
 flask_migrate
 flask_restful
-flask_cache
-flask_healthz
+redis
+flask_caching
 pymysql
+flask_healthz
