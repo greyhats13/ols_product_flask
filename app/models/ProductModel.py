@@ -1,8 +1,6 @@
-# create product model from flask_sqlalchemy
-
 from app import mysql
 
-class ProductModel(mysql.db.db.Model):
+class ProductModel(mysql.db.Model):
     __tablename__ = 'products'
     id = mysql.db.Column(mysql.db.Integer, primary_key=True)
     sku = mysql.db.Column(mysql.db.String(100), unique=True)
@@ -16,8 +14,8 @@ class ProductModel(mysql.db.db.Model):
     image = mysql.db.Column(mysql.db.String(200), nullable=False)
     date_created = mysql.db.Column(mysql.db.DateTime, nullable=False)
     
-    #create product model init method
-    def __init__(self, sku, name, price, quantity, category, weight, volume, description, image, date_created):
+    # Constructor for the Product model
+    def __init__(self, sku, name, price, quantity, category, weight, volume, description, image, date_created=None):
         self.sku = sku
         self.name = name
         self.price = price
@@ -29,22 +27,27 @@ class ProductModel(mysql.db.db.Model):
         self.image = image
         self.date_created = date_created
         
+    # String representation of the Product model
     def __repr__(self):
         return '<Product %r>' % self.name
     
+    # Serialize the Product model to a dictionary
     def serialize(self):
         return {
             'id': self.id,
+            'sku': self.sku,
             'name': self.name,
             'price': self.price,
             'quantity': self.quantity,
+            'weight': self.weight,
+            'volume': self.volume,
             'category': self.category,
             'description': self.description,
             'image': self.image,
             'date_created': str(self.date_created)
         }
         
-    # create product model getters and setters using mysql.db helper class
+    # Model methods for CRUD operations and other queries
     def get_all():
         return mysql.get_all(ProductModel)
     
@@ -71,16 +74,13 @@ class ProductModel(mysql.db.db.Model):
     
     def get_by_price(price):
         return mysql.get_by_price(ProductModel, price)
-    
+
     def get_by_quantity(quantity):
         return mysql.get_by_quantity(ProductModel, quantity)
-    
+
     def get_by_date_created(date_created):
         return mysql.get_by_date_created(ProductModel, date_created)
-    
+
     def migrate_all():
         return mysql.migrate_all()
 
-    # check DB connection
-    def check_mysql_connection():
-        return mysql.execute_one()
